@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: userok
+      POSTGRES_PASSWORD: userok
+      POSTGRES_DB: company_db
+    ports:
+      - "5432:5432"
+
+  user-service:
+    build: ./user-service
+    environment:
+      POSTGRES_USER: userok
+      POSTGRES_PASSWORD: userok
+      POSTGRES_DB: company_db
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    ports:
+      - "8101:8101"
+    depends_on:
+      - postgres
+
+  company-service:
+    build: ./company-service
+    environment:
+      POSTGRES_USER: userok
+      POSTGRES_PASSWORD: userok
+      POSTGRES_DB: company_db
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    ports:
+      - "8102:8102"
+    depends_on:
+      - postgres
+
