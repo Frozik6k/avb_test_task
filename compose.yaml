@@ -11,7 +11,12 @@ services:
       - "5432:5432"
 
   user-service:
-    build: ./user-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: user-service
+
     environment:
       POSTGRES_USER: userok
       POSTGRES_PASSWORD: userok
@@ -24,13 +29,18 @@ services:
       - postgres
 
   company-service:
-    build: ./company-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: company-service
     environment:
       POSTGRES_USER: userok
       POSTGRES_PASSWORD: userok
       POSTGRES_DB: company_db
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
+
     ports:
       - "8102:8102"
     depends_on:
