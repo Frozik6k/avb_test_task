@@ -1,3 +1,7 @@
+networks:
+  my-network:
+    driver: bridge
+
 services:
   postgres:
     image: postgres:15
@@ -9,6 +13,8 @@ services:
       POSTGRES_DB: company_db
     ports:
       - "5432:5432"
+    networks:
+      - my-network
 
   user-service:
     build:
@@ -16,7 +22,6 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: user-service
-
     environment:
       POSTGRES_USER: userok
       POSTGRES_PASSWORD: userok
@@ -27,6 +32,9 @@ services:
       - "8101:8101"
     depends_on:
       - postgres
+      - eureka-server
+    networks:
+      - my-network
 
   company-service:
     build:
@@ -40,9 +48,34 @@ services:
       POSTGRES_DB: company_db
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
-
     ports:
       - "8102:8102"
     depends_on:
       - postgres
+      - eureka-server
+    networks:
+      - my-network
 
+  eureka-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - my-network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - my-network
