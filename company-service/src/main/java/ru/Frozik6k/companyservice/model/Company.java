@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Entity
 @Table(name = "companies")
 @Data
@@ -15,8 +18,10 @@ public class Company {
     private Long id;
     private String name;
     private float budget;
-    public Company(String name, float budget) {
+    private List<Long> usersId;
+    public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
         this.budget = budget;
+        this.usersId.addAll(usersId);
     }
 }
