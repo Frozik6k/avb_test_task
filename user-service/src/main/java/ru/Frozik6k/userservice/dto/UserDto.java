@@ -1,9 +1,12 @@
 package ru.Frozik6k.userservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.Frozik6k.userservice.model.User;
 
 @Data
+@NoArgsConstructor
 public class UserDto {
     private Long id;
     private String name;
@@ -16,7 +19,7 @@ public class UserDto {
         surname = user.getSurname();
         tel = user.getTel();
     }
-
+    @JsonIgnore
     public User getUser() {
         User user = new User();
         user.setId(id);
