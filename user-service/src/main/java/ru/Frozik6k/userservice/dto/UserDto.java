@@ -26,6 +26,7 @@ public class UserDto {
         user.setName(name);
         user.setSurname(surname);
         user.setTel(tel);
+        user.setIdCompany(0L);
         return user;
     }
 

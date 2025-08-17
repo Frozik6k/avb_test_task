@@ -25,5 +25,6 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.tel = tel;
+        this.idCompany = 0L;
     }
 }
