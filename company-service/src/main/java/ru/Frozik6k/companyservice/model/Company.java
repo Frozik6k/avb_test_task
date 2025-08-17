@@ -21,6 +21,7 @@ public class Company {
     private float budget;
     @ElementCollection
     @CollectionTable(name="company_users", joinColumns = @JoinColumn(name = "company_id"))
+    @Column(name = "user_id")
     private List<Long> usersId = new ArrayList<>();
     public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
