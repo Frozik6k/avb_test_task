@@ -22,13 +22,12 @@ public class ServiceUser {
 
     public UserDto getUser(Long id) {
         User user = repositoryUser.findById(id).get();
-        UserDto dto;
-        dto = new UserDto(user);
+        UserDto dto = new UserDto(user);
         try {
-            dto.setCompany(companyClient.getCompany(user.getIdCompany()));
-        } catch (Exception e) {
-            dto.setCompany(null);
-        }
+            if (user.getIdCompany() != null && user.getIdCompany() > 0) {
+                dto.setCompany(companyClient.getCompany(user.getIdCompany()));
+            }
+        } catch (Exception e) {}
         return dto;
     }
 

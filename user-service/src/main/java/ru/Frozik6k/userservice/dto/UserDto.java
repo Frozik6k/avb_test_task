@@ -17,10 +17,10 @@ public class UserDto {
     private CompanyDto company;
 
     public UserDto(User user) {
-        id = user.getId();
-        name = user.getName();
-        surname = user.getSurname();
-        tel = user.getTel();
+            id = user.getId();
+            name = user.getName();
+            surname = user.getSurname();
+            tel = user.getTel();
     }
 
     public void addCompany(CompanyDto company) {
