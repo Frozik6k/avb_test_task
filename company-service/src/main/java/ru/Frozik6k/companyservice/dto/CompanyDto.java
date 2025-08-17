@@ -11,16 +11,19 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class CompanyDto {
     private Long id;
     private String name;
     private float budget;
-    @JsonIgnore
     private List<UserDto> users;
 
+    @JsonIgnore
     public Company getCompany() {
         Company company = new Company();
-        company.setId(id);
+        if (id != null && id > 0) {
+            company.setId(id);
+        }
         company.setName(name);
         company.setBudget(budget);
         return company;

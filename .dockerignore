@@ -1,0 +1,15 @@
+# Игнорировать plain jar
+*-plain.jar
+
+# Maven кэш и сборочные артефакты
+target/
+!*/target/*.jar
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Git
+.git/
+.gitignore
