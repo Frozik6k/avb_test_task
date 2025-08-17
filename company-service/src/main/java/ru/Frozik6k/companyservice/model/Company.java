@@ -20,6 +20,7 @@ public class Company {
     private String name;
     private float budget;
     @ElementCollection
+    @CollectionTable(name="users_id")
     private List<Long> usersId = new ArrayList<>();
     public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
