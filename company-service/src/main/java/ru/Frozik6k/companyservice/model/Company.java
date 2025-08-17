@@ -25,6 +25,6 @@ public class Company {
     public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
         this.budget = budget;
-        this.usersId.addAll(usersId);
+        this.usersId = new ArrayList<>(usersId);
     }
 }
