@@ -1,6 +1,7 @@
 package ru.Frozik6k.userservice.service;
 
 import org.springframework.stereotype.Service;
+import ru.Frozik6k.userservice.client.CompanyClient;
 import ru.Frozik6k.userservice.dto.UserDto;
 import ru.Frozik6k.userservice.model.User;
 import ru.Frozik6k.userservice.repository.RepositoryUser;
@@ -12,12 +13,23 @@ public class ServiceUser {
 
     private final RepositoryUser repositoryUser;
 
-    public ServiceUser(RepositoryUser repositoryUser) {
+    private final CompanyClient companyClient;
+
+    public ServiceUser(RepositoryUser repositoryUser, CompanyClient companyClient) {
         this.repositoryUser = repositoryUser;
+        this.companyClient = companyClient;
     }
 
     public UserDto getUser(Long id) {
-        return new UserDto(repositoryUser.findById(id).get());
+        User user = repositoryUser.findById(id).get();
+        UserDto dto;
+        dto = new UserDto(user);
+        try {
+            dto.setCompany(companyClient.getCompany(user.getIdCompany()));
+        } catch (Exception e) {
+            dto.setCompany(null);
+        }
+        return dto;
     }
 
     public UserDto addUser(UserDto userDTO) {
@@ -33,7 +45,16 @@ public class ServiceUser {
         return true;
     }
 
-    public List<User> getUsers() {
-        return repositoryUser.findAll();
+    public List<UserDto> getUsers() {
+        List<UserDto> users = repositoryUser
+                .findAll()
+                .stream()
+                .map(user -> {
+                    UserDto dto = new UserDto(user);
+                    dto.setCompany(companyClient.getCompany(user.getIdCompany()));
+                    return dto;
+                })
+                .toList();
+        return users;
     }
 }

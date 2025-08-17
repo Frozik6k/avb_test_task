@@ -6,6 +6,7 @@ RUN mvn clean install -DskipTests
 
 # 2. Запуск конкретного сервиса
 FROM eclipse-temurin:21
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 ARG SERVICE_NAME
 COPY --from=build /app/${SERVICE_NAME}/target/${SERVICE_NAME}-[0-9]*.jar app.jar
