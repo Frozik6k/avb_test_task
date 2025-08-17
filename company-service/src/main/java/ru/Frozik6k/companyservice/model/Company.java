@@ -1,7 +1,9 @@
 package ru.Frozik6k.companyservice.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +15,14 @@ import java.util.List;
 @Table(name = "companies")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private float budget;
+    @JsonIgnore
     @ElementCollection
     @CollectionTable(name="company_users", joinColumns = @JoinColumn(name = "company_id"))
     @Column(name = "user_id")
@@ -28,4 +32,5 @@ public class Company {
         this.budget = budget;
         this.usersId = new ArrayList<>(usersId);
     }
+
 }

@@ -11,19 +11,19 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class CompanyDto {
     private Long id;
     private String name;
     private float budget;
     private List<UserDto> users;
-    private List<Long> usersId;
 
+    @JsonIgnore
     public Company getCompany() {
         Company company = new Company();
         company.setId(id);
         company.setName(name);
         company.setBudget(budget);
-        company.setUsersId(usersId);
         return company;
     }
 
@@ -31,7 +31,6 @@ public class CompanyDto {
         this.id = company.getId();
         this.name = company.getName();
         this.budget = company.getBudget();
-        this.usersId = company.getUsersId();
     }
 
 }

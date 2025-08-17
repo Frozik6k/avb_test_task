@@ -1,6 +1,7 @@
 package ru.Frozik6k.companyservice.service;
 
 import org.springframework.stereotype.Service;
+import ru.Frozik6k.companyservice.client.UserClient;
 import ru.Frozik6k.companyservice.repository.RepositoryCompany;
 import ru.Frozik6k.companyservice.dto.CompanyDto;
 import ru.Frozik6k.companyservice.model.Company;
@@ -12,20 +13,28 @@ public class ServiceCompany {
 
     private final RepositoryCompany repositoryCompany;
 
-    public ServiceCompany(RepositoryCompany repositoryCompany) {
+    private final UserClient userClient;
+
+    public ServiceCompany(RepositoryCompany repositoryCompany, UserClient userClient) {
         this.repositoryCompany = repositoryCompany;
+        this.userClient = userClient;
     }
 
     public CompanyDto getCompany(Long id) {
-        return new CompanyDto(repositoryCompany.findById(id).get());
+        Company company = repositoryCompany.findById(id).get();
+        CompanyDto dto = new CompanyDto(company);
+        try {
+            dto.setUsers(userClient.listByCompanyId(company.getId()));
+        } catch (Exception e) {}
+        return dto;
     }
 
-    public CompanyDto addCompany(CompanyDto companyDto) {
-        return new CompanyDto(repositoryCompany.save(companyDto.getCompany()));
+    public CompanyDto addCompany(Company company) {
+        return new CompanyDto(repositoryCompany.save(company));
     }
 
-    public CompanyDto editCompany(CompanyDto companyDto) {
-        return new CompanyDto(repositoryCompany.save(companyDto.getCompany()));
+    public CompanyDto editCompany(Company company) {
+        return new CompanyDto(repositoryCompany.save(company));
     }
 
     public boolean deleteCompany(Long id) {

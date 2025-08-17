@@ -21,12 +21,12 @@ public class User {
     private String tel;
     @JsonProperty("id_company")
     @Column(name="id_company")
-    private Long idCompany;
+    private Long companyId;
 
     public User(String name, String surname, String tel) {
         this.name = name;
         this.surname = surname;
         this.tel = tel;
-        this.idCompany = 0L;
+        this.companyId = 0L;
     }
 }

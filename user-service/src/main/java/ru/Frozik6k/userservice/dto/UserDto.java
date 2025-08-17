@@ -33,7 +33,7 @@ public class UserDto {
         user.setName(name);
         user.setSurname(surname);
         user.setTel(tel);
-        user.setIdCompany(company.getId());
+        user.setCompanyId(company.getId());
         return user;
     }
 

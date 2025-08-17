@@ -28,13 +28,13 @@ public class CompanyController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<CompanyDto> addCompany(@RequestBody CompanyDto companyDto) {
-        return ResponseEntity.ok(serviceCompany.addCompany(companyDto));
+    public ResponseEntity<CompanyDto> addCompany(@RequestBody Company company) {
+        return ResponseEntity.ok(serviceCompany.addCompany(company));
     }
 
     @PutMapping("/")
-    public ResponseEntity<CompanyDto> editCompany(@RequestBody CompanyDto companyDto) {
-        return ResponseEntity.ok(serviceCompany.editCompany(companyDto));
+    public ResponseEntity<CompanyDto> editCompany(@RequestBody Company company) {
+        return ResponseEntity.ok(serviceCompany.editCompany(company));
     }
 
     @DeleteMapping("/{companyId}")
