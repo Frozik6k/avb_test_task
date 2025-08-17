@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "user-service", url = "http://localhost:8081")
+@FeignClient(name = "user-service", url = "http://localhost:8101")
 public interface UserClient {
     @GetMapping("/users")
     List<UserDto> getUsers(@RequestParam(value = "companyId", required = false) Long id);
