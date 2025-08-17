@@ -19,12 +19,12 @@ public class Company {
     private Long id;
     private String name;
     private float budget;
-    @ElementCollection
-    @CollectionTable(name="company_users", joinColumns = @JoinColumn(name = "company_id"))
-    private List<Long> usersId = new ArrayList<>();
+//    @ElementCollection
+//    @CollectionTable(name="company_users", joinColumns = @JoinColumn(name = "company_id"))
+//    private List<Long> usersId = new ArrayList<>();
     public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
         this.budget = budget;
-        this.usersId = new ArrayList<>(usersId);
+      //  this.usersId = new ArrayList<>(usersId);
     }
 }
