@@ -79,3 +79,16 @@ services:
       - eureka-server
     networks:
       - my-network
+
+  config-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: config-server
+    ports:
+      - "8888"
+    depends_on:
+      - postgres
+    networks:
+      - my-network
