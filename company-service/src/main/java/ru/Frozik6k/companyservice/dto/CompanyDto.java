@@ -21,7 +21,9 @@ public class CompanyDto {
     @JsonIgnore
     public Company getCompany() {
         Company company = new Company();
-        company.setId(id);
+        if (id != null && id > 0) {
+            company.setId(id);
+        }
         company.setName(name);
         company.setBudget(budget);
         return company;
