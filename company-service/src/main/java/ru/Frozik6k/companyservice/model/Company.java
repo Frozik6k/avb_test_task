@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class Company {
     private Long id;
     private String name;
     private float budget;
-    private List<Long> usersId;
+    @ElementCollection
+    private List<Long> usersId = new ArrayList<>();
     public Company(String name, float budget, List<Long> usersId) {
         this.name = name;
         this.budget = budget;

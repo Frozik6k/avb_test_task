@@ -18,7 +18,7 @@ public class User {
     private String surname;
     private String tel;
     @JsonProperty("id_company")
-    @JoinColumn(name="id_company")
+    @Column(name="id_company")
     private Long idCompany;
 
     public User(String name, String surname, String tel) {
