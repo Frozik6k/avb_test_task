@@ -1,8 +1,10 @@
 package ru.Frozik6k.companyservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.Frozik6k.companyservice.service.ServiceCompany;
 import ru.Frozik6k.companyservice.dto.CompanyDto;
 import ru.Frozik6k.companyservice.model.Company;
@@ -45,4 +47,13 @@ public class CompanyController {
     public ResponseEntity<List<Company>> getCompanies() {
         return ResponseEntity.ok(serviceCompany.getCompanies());
     }
+
+    // summary endpoint used by user-service
+    @GetMapping("/{id}/summary")
+    public CompanySummaryResponse summary(@PathVariable("id") Long id) {
+        CompanyDto dto = serviceCompany.getCompany(id);
+        return new CompanySummaryResponse(dto.getId(), dto.getName(), dto.getBudget());
+    }
+
+    public static record CompanySummaryResponse(Long id, String name, float budget) {}
 }
