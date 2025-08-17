@@ -85,6 +85,11 @@ services:
         SERVICE_NAME: eureka-server
     ports:
       - "8761:8761"
+    healthcheck:
+      test: ["CMD", "wget", "-q0", "http://localhost:8761/actuator/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
     networks:
       - my-network
 
@@ -97,7 +102,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - eureka-server
+      eureka-server:
+        condition: service_healthy
     networks:
       - my-network
 
